@@ -2,7 +2,7 @@
 requires = ["cython>=3.0", "pip>=23.0", "setuptools>=61.0", "wheel", "numpy==1.23.3"]
 [project]
 name = "environment"
-version = "0.1.0"
+version = "0.2.0"
 description = "A Gymnasium environment for reinforcement learning powered by Pufferlib"
 keywords = []
 classifiers = [
@@ -15,18 +15,25 @@ classifiers = [
 ]
 dependencies = [
     "einops",
-    "opencv-python",
-    "numpy",
-    "pufferlib[cleanrl]>=1.0.0",
+    "pufferlib[cleanrl,ray]>=2.0.0",
     "torch>=2.4",
     "triton>=3",
     "torchvision",
     "wandb",
-    "pettingzoo",
     "gym==0.23",
     "matplotlib",
     "mediapy",
-    "GPUtil"
+    "GPUtil",
+    'numpy',
+    'opencv-python==3.4.17.63',
+    'rich',
+    'rich_argparse',
+    'gymnasium',
+    'pettingzoo',
+    'shimmy[gym-v21]',
+    'psutil==5.9.5',
+    'pynvml',
+    'imageio'
 ]
 [tool.setuptools.packages.find]
 where = ["."]
