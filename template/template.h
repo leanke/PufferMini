@@ -7,6 +7,9 @@
 
 typedef struct Log Log;
 struct Log {
+    // Add any things you want to keep track of here
+    // These will be your 'infos' that are seen on the
+    // dashboard as training runs, and on wandb or neptune
     float episode_return;
     float episode_length;
     float score;
@@ -100,6 +103,7 @@ void free_allocated(Template* env) {
 }
 
 void compute_observations(Template* env) {
+    // Add any observations (what the agent can 'see') here
     // env->observations[0] = 
     // env->observations[1] = 
     // env->observations[2] = 
@@ -111,9 +115,18 @@ void compute_observations(Template* env) {
 }
 
 void c_reset(Template* env) {
+    // Add any reset logic here
     env->log = (Log){0};
     env->score = 0;
     compute_observations(env);
+}
+
+// Reset the round but not the entire episode
+void reset_round(Template* env) {
+    // Add whatever would make sense to reset for the round
+    // e.g. for pong,
+    // env->n_bounces = 0;
+    env->tick = 0;
 }
 
 void c_step(Template* env) {
@@ -158,5 +171,5 @@ void close_client(Client* client) {
 }
 
 void c_render(Client* client, Template* env) {
-
+    // Add any rendering logic here
 }

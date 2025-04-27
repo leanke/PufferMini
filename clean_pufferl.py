@@ -567,14 +567,19 @@ def rollout(env_creator, env_kwargs, policy_cls, rnn_cls, agent_creator, agent_k
     if render_mode != 'auto':
         env_kwargs['render_mode'] = render_mode
 
-    # We are just using Serial vecenv to give a consistent
-    # single-agent/multi-agent API for evaluation
     env = pufferlib.vector.make(env_creator, env_kwargs=env_kwargs, backend=backend)
 
     if model_path is None:
         agent = agent_creator(env, policy_cls, rnn_cls, agent_kwargs).to(device)
     else:
-        agent = torch.load(model_path, map_location=device)
+        try:
+            # Load with weights_only=False to restore pre-PyTorch 2.6 behavior
+            # Potentially unsafe - only load a model you've trained yourself
+            agent = torch.load(model_path, map_location=device, weights_only=False)
+            print(f"Successfully loaded model from {model_path}")
+        except Exception as e:
+            print(f"Error loading model: {e}")
+            raise e
 
     ob, info = env.reset()
     driver = env.driver_env

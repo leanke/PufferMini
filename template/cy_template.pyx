@@ -6,9 +6,13 @@ cdef extern from "template.h":
     int LOG_BUFFER_SIZE
 
     ctypedef struct Log:
-        float episode_return;
-        float episode_length;
-        float score;
+        # Should be identical to the Log struct in template.h
+        # Add any things you want to keep track of here
+        # These will be your 'infos' that are seen on the
+        # dashboard as training runs, and on wandb or neptune
+        float episode_return
+        float episode_length
+        float score
 
     ctypedef struct LogBuffer
     LogBuffer* allocate_logbuffer(int)
@@ -20,8 +24,8 @@ cdef extern from "template.h":
         int* actions
         float* rewards
         unsigned char* terminals
-        LogBuffer* log_buffer;
-        Log log;
+        LogBuffer* log_buffer
+        Log log
         unsigned int score
         float width
         float height
