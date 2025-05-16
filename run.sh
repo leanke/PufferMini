@@ -1,2 +1,2 @@
 #!/bin/bash
-python demo.py --mode train --env pong --vec serial # --track  --wandb-entity WANDB_ID_HERE
+python -m clean_pufferl --mode train --env pong # --track  --wandb-entity WANDB_ID_HERE
